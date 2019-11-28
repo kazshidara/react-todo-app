@@ -1,0 +1,36 @@
+import { combinedReducers,createStore } from "Redux";
+
+const reducer = function(state, actions){
+    if (action.type === "INC"){
+        return state + action.payload;
+    }
+    if (action.type === "DEC"){
+        return state - action.payload;
+    }
+
+    return state;
+
+}
+
+// Initialize a store by passing in a reducer()
+const store = createStore(reducer, {
+
+    user: {
+        name:"Kaz",
+        age: 25,
+    },
+    tweets: []
+
+});
+
+// If any changes to the store made, console log the current state
+store.subscribe(() => {
+    console.log("store changed", store.getState())
+})
+
+// Dispatch events to the store
+// action has to have a TYPE element to it, payload can be whatever
+store.dispatch({type: "INC", payload: 1})
+store.dispatch({type: "DEC", payload: 1})
+
+
